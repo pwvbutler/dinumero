@@ -1,31 +1,30 @@
-import React from 'react'
-import { View, ScrollView, StyleSheet } from 'react-native'
+import React from 'react';
+import { View, ScrollView, StyleSheet } from 'react-native';
+import ColourCheckBox from './ColourCheckBox';
 
-import ColourCheckBox from './ColourCheckBox.js'
+const ScrollViewList = ({ coloursArray, currentColour, onSelectColour }) => {
+  return (
+    <View>
+      <ScrollView style={styles.coloursContainer} scrollEnabled={false}>
+        {coloursArray.map((value) => (
+          <ColourCheckBox
+            key={value.title}
+            colourTitle={value.title}
+            colourValue={value.value}
+            currentColour={currentColour}
+            changeColour={() => onSelectColour(value)}
+          />
+        ))}
+      </ScrollView>
+    </View>
+  );
+};
 
-
-
-export default class SrollViewList extends React.Component {
-  render() {
-    return (
-      <View>
-        <ScrollView style={styles.coloursContainer} scrollEnabled={false}>
-          {this.props.coloursArray.map((value, index) => (
-            <ColourCheckBox 
-              colourTitle={value.title} 
-              colourValue={value.value} 
-              currentColour={this.props.currentColour} 
-              changeColour={this.props.onSelectColour(value)} />
-          ))}
-        </ScrollView>
-      </View>
-    )
-  }
-}
+export default ScrollViewList;
 
 const styles = StyleSheet.create({
   coloursContainer: {
-    justifyContent: 'center', 
-    alignItems: 'center'
+    justifyContent: 'center',
+    alignItems: 'center',
   },
-})
+});

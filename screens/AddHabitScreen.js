@@ -10,7 +10,7 @@ import {
   StatusBar,
   KeyboardAvoidingView
 } from 'react-native';
-import { Constants } from 'expo';
+import Constants from 'expo-constants';
 import { connect } from 'react-redux'
 import { addHabit } from './../redux/actions.js'
 
@@ -29,12 +29,13 @@ class AddHabitScreen extends React.Component {
     colour: colourOptions[Math.floor(Math.random() * colourOptions.length)],
     habitTitle: '',
     placeholderText: 'Habit Name...',
-    numDays: 28,
+    numDays: '28',
   };
 
-  onSelectColour = colour => () => {
-    this.setState(() => ({ colour }));
+  onSelectColour = (colour) => {
+    this.setState({ colour });
   };
+
 
   updateHabitTitle = val => {
     if (val.length < 25) {
@@ -43,10 +44,17 @@ class AddHabitScreen extends React.Component {
   };
 
   updateNumDays = val => {
-    if (0 < val <= 365){
-      this.setState(()=> ({ numDays: val }));
+    if (val === '') {
+      this.setState({ numDays: '' }); // ✅ Allow clearing the input
+      return;
+    }
+
+    const num = parseInt(val, 10);
+    if (!isNaN(num) && num > 0 && num <= 365) {
+      this.setState({ numDays: String(num) }); // ✅ Always store as a string
     }
   };
+
 
   submitAddHabit = () => {
     if (this.state.habitTitle.length > 0) {
@@ -88,7 +96,7 @@ class AddHabitScreen extends React.Component {
           <TextInput
             placeholder={this.state.numDays}
             placeholderTextColor={'#D8DAE7'}
-            value={this.state.numDays}
+            value={String(this.state.numDays)}
             onChangeText={this.updateNumDays}
             style={[styles.subTitleText, {marginHorizontal: 4, color: '#D8DAE7'}]}
             keyboardType='number-pad'

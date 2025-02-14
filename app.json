@@ -1,19 +1,17 @@
 {
   "expo": {
-    "name": "dinumerofull",
-    "slug": "snack-fd14dd12-c47e-4358-a630-d83635e26c40",
+    "name": "rebellious-red-coffee",
+    "slug": "snack-d7f37c6b-b471-4827-a592-9d8ad606b370",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
+    "newArchEnabled": true,
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/splash-icon.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
     "ios": {
       "supportsTablet": true
     },

@@ -1,18 +1,15 @@
-import * as React from 'react';
-import { Text, View, StyleSheet } from 'react-native';
-import Constants from 'expo-constants';
-import { Provider } from 'react-redux'
-import store from './redux/store.js'
+import React from 'react';
+import { Provider } from 'react-redux';
+import { NavigationContainer } from '@react-navigation/native';
+import store from './redux/store';
+import AppNavigator from './AppNavigator';
 
-import AppContainer from './AppNavigator.js'
-
-export default class App extends React.Component {
-  render() {
-    return (
-      <Provider store={store} >
-        <AppContainer />
-      </Provider>
-    );
-  }
+export default function App() {
+  return (
+    <Provider store={store}>
+      <NavigationContainer>
+        <AppNavigator />
+      </NavigationContainer>
+    </Provider>
+  );
 }
-

@@ -1,36 +1,28 @@
-import React from 'react';
-import { TouchableOpacity, View, Text, StyleSheet } from 'react-native';
-import { textColours, appColours } from './colours.js'
-import { connect } from 'react-redux'
-import { toggleDate } from './redux/actions.js'
+import React, { useState } from 'react';
+import { TouchableOpacity, Text, StyleSheet } from 'react-native';
+import { useDispatch } from 'react-redux';
+import { toggleDate } from './redux/actions';
 
-class DinumeroButton extends React.Component {
-  state = {
-    isPressed: this.props.isDone
-  }
+const DinumeroButton = ({ habit_title, ind, date, isDone, colour }) => {
+  const [isPressed, setIsPressed] = useState(isDone);
+  const dispatch = useDispatch();
 
-  dateBtnPressed = () => {
-    this.props.toggleDate(this.props.habit_title, this.props.ind)
-    this.setState(prevState => ({isPressed: !prevState.isPressed}))
-  }
+  const dateBtnPressed = () => {
+    dispatch(toggleDate(habit_title, ind));
+    setIsPressed(!isPressed);
+  };
 
-  render() {
-    return (
-      <TouchableOpacity
-        onPress={this.dateBtnPressed}
-        style={[styles.btnDefault, (!this.state.isPressed ? styles.btnOff : [styles.btnOn, {backgroundColor: this.props.colour}])]}
-      >
-        <Text style={styles.dateText}>{this.props.date}</Text>
-      </TouchableOpacity>
-    );
-  }
-}
+  return (
+    <TouchableOpacity
+      onPress={dateBtnPressed}
+      style={[styles.btnDefault, !isPressed ? styles.btnOff : [styles.btnOn, { backgroundColor: colour }]]}
+    >
+      <Text style={styles.dateText}>{date}</Text>
+    </TouchableOpacity>
+  );
+};
 
-const mapDispatchToProps = {
-  toggleDate,
-}
-
-export default connect(null, mapDispatchToProps)(DinumeroButton)
+export default DinumeroButton;
 
 const styles = StyleSheet.create({
   btnDefault: {
@@ -42,10 +34,10 @@ const styles = StyleSheet.create({
     backgroundColor: 'black',
   },
   btnOn: {
-    backgroundColor: textColours.blue,
+    backgroundColor: 'blue',
   },
   dateText: {
-    color: appColours.darkGrey,
+    color: 'grey',
     fontWeight: 'bold',
-  }
+  },
 });
